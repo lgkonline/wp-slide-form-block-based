@@ -1,0 +1,2 @@
+.slideForm-Question:not(.active) {
+  display: none; }
