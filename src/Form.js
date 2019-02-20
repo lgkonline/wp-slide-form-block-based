@@ -4,7 +4,8 @@
 const { __ } = wp.i18n;
 
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.editor;
+const { InnerBlocks, InspectorControls } = wp.editor;
+const { PanelBody } = wp.components;
 
 /**
  * Register block
@@ -33,17 +34,24 @@ export default registerBlockType("slide-form/form", {
     edit: props => {
         console.log(props);
         return (
-            <div>
-                <label>
-                    {"Shortcode for a form by Contact Form 7"}
-                    <input
-                        type="text"
-                        value={props.attributes.formShortcode}
-                        onChange={({ target }) => props.setAttributes({ formShortcode: target.value })}
-                        style={{ width: "100%" }}
-                    />
-                </label>
+            <div className="galley-block p-3">
+                <InspectorControls>
+                    <PanelBody
+                        title="Contact Form 7 shortcode"
+                        initialOpen={true}
+                    >
+                        <div>
+                            <p>Insert here the shortcode for a form, you get from Contact Form 7. This form will be used by Side Form on the final page.</p>
+                        </div>
 
+                        <input
+                            type="text"
+                            value={props.attributes.formShortcode}
+                            onChange={({ target }) => props.setAttributes({ formShortcode: target.value })}
+                            style={{ width: "100%" }}
+                        />
+                    </PanelBody>
+                </InspectorControls>
                 <InnerBlocks />
             </div>
         );

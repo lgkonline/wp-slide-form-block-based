@@ -60,6 +60,14 @@ function slide_form_scripts() {
         "",
         filemtime(plugin_dir_path(__FILE__) . $stylePath)
     );
+
+    $frontendPath = "/dist/frontend.js";
+    wp_enqueue_script(
+        "slide-form-frontend-js",
+        plugins_url($frontendPath, __FILE__),
+        "",
+        filemtime(plugin_dir_path(__FILE__) . $frontendPath)
+    );
 }
 add_action("enqueue_block_assets", "slide_form_scripts");
 

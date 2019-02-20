@@ -4,7 +4,8 @@
 const { __ } = wp.i18n;
 
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.editor;
+const { MediaUpload, RichText } = wp.editor;
+const { Button } = wp.components;
 
 /**
  * Register block
@@ -29,32 +30,45 @@ export default registerBlockType("slide-form/option", {
             type: "string",
             default: __("New label")
         },
-        icon: {
-            type: "string"
+        mediaID: {
+            type: "number",
+        },
+        mediaURL: {
+            type: "string",
+            default: ""
         }
     },
     // Defining the edit interface
     edit: props => {
         console.log(props);
         return (
-            <div>
-                <label>
-                    {"Label"}
-                    <input
-                        type="text"
-                        value={props.attributes.label}
-                        onChange={({ target }) => props.setAttributes({ label: target.value })}
-                    />
-                </label>
+            <div className="galley-block p-3">
+                <MediaUpload
+                    allowedTypes="image"
+                    value={props.attributes.mediaID}
+                    render={({ open }) => (
+                        <Button
+                            className={props.attributes.mediaID ? "image-button" : "button button-large"}
+                            onClick={open}
+                        >
+                            {!props.attributes.mediaID ? __("Upload Image") : <img src={props.attributes.mediaURL} alt={__("Upload Image")} />}
+                        </Button>
+                    )}
+                    onSelect={(media) => {
+                        props.setAttributes({
+                            mediaURL: media.url,
+                            mediaID: media.id
+                        });
+                    }}
+                />
 
-                <label>
-                    {"Icon"}
-                    <input
-                        type="text"
-                        value={props.attributes.icon}
-                        onChange={({ target }) => props.setAttributes({ icon: target.value })}
-                    />
-                </label>
+                <RichText
+                    value={props.attributes.label}
+                    onChange={(title) => props.setAttributes({
+                        label: title
+                    })}
+                    placeholder="Label"
+                />
             </div>
         );
     },
@@ -71,7 +85,7 @@ export default registerBlockType("slide-form/option", {
                 }}
             >
                 <img
-                    src={props.attributes.icon}
+                    src={props.attributes.mediaURL}
                     alt={props.attributes.label}
                     style={{ marginBottom: "1rem" }}
                 />

@@ -6,8 +6,6 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 const { InnerBlocks } = wp.editor;
 
-import { QuestionComponent } from "./QuestionComponent";
-
 /**
  * Register block
  */
@@ -36,7 +34,7 @@ export default registerBlockType("slide-form/question", {
     edit: props => {
         console.log(props);
         return (
-            <div>
+            <div className="galley-block p-3">
                 <input
                     type="text"
                     value={props.attributes.question}
@@ -50,33 +48,25 @@ export default registerBlockType("slide-form/question", {
     },
     // Defining the front-end interface
     save: props => {
+
         console.log(props);
         return (
-            <QuestionComponent {...props} />
+            <div className="slideForm-Question">
+                <h2 style={{ textAlign: "center" }}>{props.attributes.question}</h2>
+
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        marginLeft: "-1rem",
+                        marginRight: "-1rem"
+                    }}
+                >
+                    <InnerBlocks.Content />
+                </div>
+            </div>
         );
     },
     deprecated: [
-        {
-            save: props => {
-
-                console.log(props);
-                return (
-                    <div className="slideForm-Question">
-                        <h2 style={{ textAlign: "center" }}>{props.attributes.question}</h2>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-around",
-                                marginLeft: "-1rem",
-                                marginRight: "-1rem"
-                            }}
-                        >
-                            <InnerBlocks.Content />
-                        </div>
-                    </div>
-                );
-            }
-        }
     ]
 });

@@ -1,2 +1,9 @@
+.galley-block {
+  border: 1px solid rgba(0, 115, 170, 0.5);
+  border-radius: 3px; }
+
+.p-3 {
+  padding: 1rem; }
+
 .slideForm-Question:not(.active) {
   display: none; }
