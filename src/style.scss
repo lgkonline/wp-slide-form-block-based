@@ -10,3 +10,39 @@
 .slideForm-Question:not(.active) {
     display: none;
 }
+
+.slideForm-Option {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    overflow: hidden;
+    width: 25%;
+
+    & > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &.active {
+        box-shadow: 0 0 0 6px black;
+    }
+}
+
+.slideForm-back {
+    margin-bottom: 1rem;
+
+    &.disabled {
+        visibility: hidden;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .slideForm-back {
+        position: absolute;
+        margin-top: -3.5rem;
+    }
+}
+
+#slideForm-form-field {
+    display: none;
+}

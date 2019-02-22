@@ -40,9 +40,8 @@ export default registerBlockType("slide-form/option", {
     },
     // Defining the edit interface
     edit: props => {
-        console.log(props);
         return (
-            <div className="galley-block p-3">
+            <div className="galley-block p-3" style={{ borderColor: "#ff2d55" }}>
                 <MediaUpload
                     allowedTypes="image"
                     value={props.attributes.mediaID}
@@ -74,15 +73,16 @@ export default registerBlockType("slide-form/option", {
     },
     // Defining the front-end interface
     save: props => {
-        console.log(props);
         return (
             <button
                 type="button"
+                className="slideForm-Option"
                 style={{
                     display: "flex",
                     flexDirection: "column",
                     margin: "0 1rem"
                 }}
+                data-label={props.attributes.label}
             >
                 <img
                     src={props.attributes.mediaURL}
@@ -94,5 +94,28 @@ export default registerBlockType("slide-form/option", {
         );
     },
     deprecated: [
+        {
+            // Defining the front-end interface
+            save: props => {
+                return (
+                    <button
+                        type="button"
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            margin: "0 1rem"
+                        }}
+                        data-label={props.attributes.label}
+                    >
+                        <img
+                            src={props.attributes.mediaURL}
+                            alt={props.attributes.label}
+                            style={{ marginBottom: "1rem" }}
+                        />
+                        <span>{props.attributes.label}</span>
+                    </button>
+                );
+            }
+        }
     ]
 });

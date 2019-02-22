@@ -4,7 +4,7 @@
 const { __ } = wp.i18n;
 
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.editor;
+const { InnerBlocks, RichText } = wp.editor;
 
 /**
  * Register block
@@ -17,7 +17,7 @@ export default registerBlockType("slide-form/question", {
     // Block Category
     category: "common",
     // Block Icon
-    icon: "feedback",
+    icon: "lightbulb",
     // Block Keywords
     keywords: [
         __("form"),
@@ -32,15 +32,15 @@ export default registerBlockType("slide-form/question", {
     },
     // Defining the edit interface
     edit: props => {
-        console.log(props);
         return (
-            <div className="galley-block p-3">
-                <input
-                    type="text"
-                    value={props.attributes.question}
-                    onChange={({ target }) => props.setAttributes({ question: target.value })}
-                    style={{ width: "100%" }}
-                />
+            <div className="galley-block p-3" style={{ borderColor: "#5856d6" }}>
+                <h3 style={{ margin: "0" }}>
+                    <RichText
+                        value={props.attributes.question}
+                        onChange={(question) => props.setAttributes({ question })}
+                        placeholder="Title"
+                    />
+                </h3>
 
                 <InnerBlocks />
             </div>
@@ -48,11 +48,13 @@ export default registerBlockType("slide-form/question", {
     },
     // Defining the front-end interface
     save: props => {
-
-        console.log(props);
         return (
-            <div className="slideForm-Question">
+            <div
+                className="slideForm-Question"
+                data-question={props.attributes.question}
+            >
                 <h2 style={{ textAlign: "center" }}>{props.attributes.question}</h2>
+                <button type="button" className="slideForm-back">⬅️</button>
 
                 <div
                     style={{
