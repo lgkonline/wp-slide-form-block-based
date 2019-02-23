@@ -10,38 +10,10 @@ License:        MIT
 License URI:    https://raw.githubusercontent.com/lgkonline/rate-and-comment/master/LICENSE
 */
 
-defined("ABSPATH") || exit;
+// defined("ABSPATH") || exit;
 
-global $slide_form_default_settings;
-$slide_form_default_settings = array(
-    "slide_form_like_icon" => "👍",
-    "slide_form_dislike_icon" => "👎",
-    "slide_form_comment_content" => "💬 Comment via Twitter"
-);
+require "ajax.php";
 
-
-function slide_form_install() {
-}
-register_activation_hook(__FILE__, "slide_form_install");
-
-
-function slide_form_register_settings() {
-    global $slide_form_default_settings;
-
-    // Custom CSS setting
-    register_setting("discussion", "slide_form_styling", array(
-        "type" => "string",
-        "description" => "Custom styling for Rate And Comment."
-    ));
-    function slide_form_styling_settings_field_cb() {
-        $setting = get_option("slide_form_styling");
-        ?>
-        <textarea name="slide_form_styling" style="width:100%" rows="7"><?php echo isset($setting) ? esc_attr($setting) : "" ?></textarea>
-        <?php
-    }
-    add_settings_field("slide_form_styling_settings_field", "Custom CSS", "slide_form_styling_settings_field_cb", "discussion", "slide_form_settings_section");
-}
-add_action("admin_init", "slide_form_register_settings");
 
 function slide_form_scripts() {
     $blockPath = "/dist/block.js";
@@ -60,6 +32,11 @@ function slide_form_scripts() {
         "",
         filemtime(plugin_dir_path(__FILE__) . $stylePath)
     );
+}
+add_action("enqueue_block_assets", "slide_form_scripts");
+
+
+function slide_form_frontend_scripts() {
 
     $frontendPath = "/dist/frontend.js";
     wp_enqueue_script(
@@ -68,8 +45,12 @@ function slide_form_scripts() {
         "",
         filemtime(plugin_dir_path(__FILE__) . $frontendPath)
     );
+
+    wp_localize_script("slide-form-frontend-js", "slideForm_obj", array(
+        "ajax_url" => admin_url("admin-ajax.php")
+    ));
 }
-add_action("enqueue_block_assets", "slide_form_scripts");
+add_action("wp_enqueue_scripts", "slide_form_frontend_scripts");
 
 
 function slide_form_block_callback($attr) {

@@ -69,6 +69,29 @@ ready(function () {
                     })(questions[j], questions[j - 1], questions[j + 1]);
                 }
             }
+
+            var htmlForm = form.querySelector(".slideForm-Form form");
+            if (htmlForm) {
+                htmlForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    var request = new XMLHttpRequest();
+                    request.open("POST", slideForm_obj.ajax_url, true);
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                    request.send("action=slideform_submit&data=" + JSON.stringify(formObj));
+
+                    request.onload = function () {
+                        console.log(request);
+
+                        if (request.response === "OK") {
+                            htmlForm.innerHTML += "<div class='alert alert-success'>Success!</div>";
+                        }
+                        else {
+                            htmlForm.innerHTML += "<div class='alert alert-danger'>Something went wrong</div>";
+                        }
+                    }
+                });
+            }
         })(forms[i]);
     }
 });
