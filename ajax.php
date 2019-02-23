@@ -11,12 +11,30 @@ function slideform_submit($post_id) {
         $adminEmail = get_bloginfo("admin_email");
 
         $emailBody = "";
-        foreach ($data as $key => $value) {
-            $emailBody .= $key . "\n";
-            $emailBody .= $value . "\n\n";
+        $fields = ["name", "email", "phone", "textarea"];
+
+        foreach ($fields as $field) {
+            $emailBody .= "<p><strong>" . ucwords($field) . "</strong><br>";
+
+            if (array_key_exists($field, $_POST)) {
+                $emailBody .= $_POST[$field];
+            }
+            else {
+                $emailBody .= "<i>Not set</i>";
+            }
+            $emailBody .= "</p>";
         }
 
-        if (wp_mail($adminEmail, "Slide Form: New submission!", $emailBody)) {
+        $emailBody .= "<h3>Answers</h3>";
+        foreach ($data as $key => $value) {
+            $emailBody .= "<p><strong>" . $key . "</strong><br>";
+            $emailBody .= $value . "</p>";
+        }
+
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        if (wp_mail($adminEmail, "Slide Form: New submission!", $emailBody, $headers)) {
             echo "OK";
         }
         else {
