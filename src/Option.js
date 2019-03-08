@@ -13,6 +13,7 @@ const { Button } = wp.components;
 export default registerBlockType("slide-form/option", {
     // Block Title
     title: __("Slide Form Option"),
+    parent: ["slide-form/question"],
     // Block Description
     description: __("Embedding option."),
     // Block Category
@@ -27,8 +28,7 @@ export default registerBlockType("slide-form/option", {
     ],
     attributes: {
         label: {
-            type: "string",
-            default: __("New label")
+            type: "string"
         },
         mediaID: {
             type: "number",

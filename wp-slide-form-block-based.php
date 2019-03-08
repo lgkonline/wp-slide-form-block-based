@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:    Slide Form Blocks
-Plugin URI:     http://go.lgk.io/wp-slide-form
+Plugin URI:     http://go.lgk.io/wpslideform
 Description:    WordPress plugin for a form with slides, which could be used e.g. for project request forms.
 Version:        1.0.0
 Author:         Lars G. Kliesing (LGK)

@@ -26,8 +26,7 @@ export default registerBlockType("slide-form/form", {
     ],
     attributes: {
         formTitle: {
-            type: "string",
-            default: __("Form")
+            type: "string"
         },
         nameLabel: {
             type: "string",
@@ -98,23 +97,39 @@ export default registerBlockType("slide-form/form", {
 
                     <form style={{ marginTop: "1rem" }}>
                         <p>
-                            <label htmlFor="dher74z8rwue3zr7">{props.attributes.nameLabel}</label>
-                            <input id="dher74z8rwue3zr7" type="text" name="name" required />
+                            <label>
+                                {props.attributes.nameLabel}<br />
+                                <span>
+                                    <input type="text" name="name" required />
+                                </span>
+                            </label>
                         </p>
 
                         <p>
-                            <label htmlFor="fgh478wuhrew">{props.attributes.emailLabel}</label>
-                            <input id="fgh478wuhrew" type="email" name="email" required />
+                            <label>
+                                {props.attributes.emailLabel}<br />
+                                <span>
+                                    <input type="email" name="email" required />
+                                </span>
+                            </label>
                         </p>
 
                         <p>
-                            <label htmlFor="f7z36r78iqhrh">{props.attributes.phoneLabel}</label>
-                            <input id="f7z36r78iqhrh" type="tel" name="phone" required />
+                            <label>
+                                {props.attributes.phoneLabel}<br />
+                                <span>
+                                    <input type="tel" name="phone" required />
+                                </span>
+                            </label>
                         </p>
 
                         <p>
-                            <label htmlFor="gz7ehe6guzhuw">{props.attributes.textareaLabel}</label>
-                            <textarea id="gz7ehe6guzhuw" name="textarea" />
+                            <label>
+                                {props.attributes.textareaLabel}<br />
+                                <span>
+                                    <textarea name="textarea" />
+                                </span>
+                            </label>
                         </p>
 
                         <input type="submit" />

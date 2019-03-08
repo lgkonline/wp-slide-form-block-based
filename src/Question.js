@@ -12,6 +12,7 @@ const { InnerBlocks, RichText } = wp.editor;
 export default registerBlockType("slide-form/question", {
     // Block Title
     title: __("Slide Form Question"),
+    parent: ["slide-form/form"],
     // Block Description
     description: __("Embedding question."),
     // Block Category
@@ -26,8 +27,7 @@ export default registerBlockType("slide-form/question", {
     ],
     attributes: {
         question: {
-            type: "string",
-            default: __("New question")
+            type: "string"
         }
     },
     // Defining the edit interface
@@ -57,12 +57,7 @@ export default registerBlockType("slide-form/question", {
                 <button type="button" className="slideForm-back">⬅️</button>
 
                 <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-around",
-                        marginLeft: "-1rem",
-                        marginRight: "-1rem"
-                    }}
+                    className="slideForm-Question-content"
                 >
                     <InnerBlocks.Content />
                 </div>
@@ -70,5 +65,29 @@ export default registerBlockType("slide-form/question", {
         );
     },
     deprecated: [
+        {
+            save: props => {
+                return (
+                    <div
+                        className="slideForm-Question"
+                        data-question={props.attributes.question}
+                    >
+                        <h2 style={{ textAlign: "center" }}>{props.attributes.question}</h2>
+                        <button type="button" className="slideForm-back">⬅️</button>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                marginLeft: "-1rem",
+                                marginRight: "-1rem"
+                            }}
+                        >
+                            <InnerBlocks.Content />
+                        </div>
+                    </div>
+                );
+            }
+        }
     ]
 });

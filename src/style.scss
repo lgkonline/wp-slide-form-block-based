@@ -11,6 +11,13 @@
     display: none;
 }
 
+.slideForm-Question-content {
+    display: flex;
+    justify-content: space-between;
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
 .slideForm-Option {
     display: flex;
     flex-direction: column;
